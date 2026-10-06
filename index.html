@@ -1,1507 +1,1046 @@
 <!DOCTYPE html>
-<html lang="id" class="light">
-
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>minded</title>
+  <meta name="description" content="Portofolio Zulfikar, siswa SMK kelas 10 PPLG angkatan 2026. Kurasi modul belajar, eksperimen kode, dan catatan rekayasa perangkat lunak.">
 
-    <!-- Google Font: Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+  <!-- Google Fonts: Inter, Newsreader, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        sky: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        }
-                    }
-                }
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+            serif: ['Newsreader', 'Georgia', 'serif'],
+          },
+          colors: {
+            paper: {
+              bg: '#F7F6F2',
+              surface: '#FFFFFF',
+              border: '#E5E2DA',
+              ink: '#191919',
+              muted: '#737373',
+            },
+            charcoal: {
+              bg: '#121316',
+              surface: '#181A1F',
+              border: '#262930',
+              ink: '#F0F0EE',
+              muted: '#8E919A',
             }
+          }
         }
-    </script>
+      }
+    }
+  </script>
 
-    <!-- Anime.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <!-- Anime.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 
-    <style>
-        html {
-            background-color: #f8fafc;
-            min-height: 100vh;
-        }
+  <style>
+    /* Custom Scrollbar Hairline */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8D5CC;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #2E323B;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B8B4A8;
+    }
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #424754;
+    }
 
-        html.dark {
-            background-color: #020617;
-        }
+    /* Crisp Selection */
+    ::selection {
+      background: #191919;
+      color: #F7F6F2;
+    }
+    .dark ::selection {
+      background: #F0F0EE;
+      color: #121316;
+    }
 
-        /* Styling dasar tanpa efek blur sama sekali sesuai instruksi */
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-            background-color: transparent !important;
-            min-height: 100vh;
-        }
-
-        /* Scrollbar halus */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        .dark ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #38bdf8;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0284c7;
-        }
-
-        /* Elemen dekoratif background */
-        .bg-circle {
-            position: fixed;
-            border-radius: 9999px;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.35;
-            transition: background-color 0.3s ease;
-        }
-
-        .dark .bg-circle {
-            opacity: 0.15;
-        }
-
-        /* Floating Toast Animation keyframe bantuan */
-        @keyframes floatGentle {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-
-        .toast-floating {
-            animation: floatGentle 2.4s ease-in-out infinite;
-        }
-
-        /* Elemen Khusus Background Efek Air Terjun (Murni Background: z-index: -1) */
-        #waterfall-bg {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
-            transform: translateY(-100%);
-            will-change: transform;
-        }
-    </style>
+    /* Hairline border utility */
+    .hairline-b {
+      border-bottom: 1px solid var(--border-color);
+    }
+    :root {
+      --border-color: #E5E2DA;
+      --bg-color: #F7F6F2;
+    }
+    .dark {
+      --border-color: #262930;
+      --bg-color: #121316;
+    }
+  </style>
 </head>
+<body class="bg-paper-bg dark:bg-charcoal-bg text-paper-ink dark:text-charcoal-ink font-sans antialiased min-h-screen transition-colors duration-300 overflow-x-hidden selection:bg-paper-ink selection:text-paper-bg dark:selection:bg-charcoal-ink dark:selection:text-charcoal-bg">
 
-<body
-    class="text-slate-800 dark:text-slate-100 min-h-screen selection:bg-sky-500 selection:text-white">
+  <!-- ================= OVERLAY ANIMASI WHACK-A-MOLE ================= -->
+  <div id="bonkOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/40 backdrop-blur-sm select-none">
+    <div class="relative flex flex-col items-center justify-center text-center p-6">
+      
+      <!-- Bonk Impact Text -->
+      <div id="bonkText" class="opacity-0 font-mono font-black text-4xl sm:text-5xl text-amber-400 drop-shadow-[0_2px_10px_rgba(251,191,36,0.6)] transform -rotate-6 mb-3 pointer-events-none">
+        💥 BONK!
+      </div>
 
-    <!-- Elemen Khusus Background Efek Air Terjun (Murni di paling belakang: z-index: -1) -->
-    <div id="waterfall-bg" style="position: fixed; inset: 0; z-index: -1; transform: translateY(-100%); will-change: transform;" class="pointer-events-none"></div>
+      <!-- Whack-A-Mole Stage -->
+      <div class="relative w-64 h-56 flex items-end justify-center overflow-visible">
+        
+        <!-- Mole + Hole Assembly -->
+        <div class="relative w-44 h-40 flex items-end justify-center">
+          
+          <!-- Masked Mole (Tikus Tanah) Container -->
+          <div class="absolute bottom-6 w-32 h-36 overflow-hidden flex items-end justify-center">
+            <svg id="moleSvg" class="w-28 h-32 transform translate-y-36" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Mole Body -->
+              <path d="M15 110C15 65 25 25 50 25C75 25 85 65 85 110H15Z" fill="#8D5B4C"/>
+              <!-- Belly patch -->
+              <ellipse cx="50" cy="85" rx="22" ry="25" fill="#DDB892"/>
+              <!-- Left Ear -->
+              <circle cx="26" cy="32" r="11" fill="#8D5B4C"/>
+              <circle cx="26" cy="32" r="6" fill="#F4A261"/>
+              <!-- Right Ear -->
+              <circle cx="74" cy="32" r="11" fill="#8D5B4C"/>
+              <circle cx="74" cy="32" r="6" fill="#F4A261"/>
+              <!-- Snout / Muzzle -->
+              <ellipse cx="50" cy="52" rx="16" ry="11" fill="#DDB892"/>
+              <!-- Nose -->
+              <ellipse cx="50" cy="47" rx="7" ry="5" fill="#E76F51"/>
+              <!-- Left Eye -->
+              <circle cx="38" cy="40" r="3.5" fill="#1D1D1D"/>
+              <circle cx="39.2" cy="38.8" r="1.2" fill="#FFFFFF"/>
+              <!-- Right Eye -->
+              <circle cx="62" cy="40" r="3.5" fill="#1D1D1D"/>
+              <circle cx="63.2" cy="38.8" r="1.2" fill="#FFFFFF"/>
+              <!-- Whiskers -->
+              <path d="M30 52L15 50M30 55L14 58M70 52L85 50M70 55L86 58" stroke="#1D1D1D" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Little Paws -->
+              <ellipse cx="32" cy="98" rx="8" ry="5" fill="#DDB892"/>
+              <ellipse cx="68" cy="98" rx="8" ry="5" fill="#DDB892"/>
+            </svg>
+          </div>
 
-    <!-- Elemen Dekoratif Background (Parallax via Anime.js tanpa blur) -->
-    <div id="bg-circle-1"
-        class="bg-circle w-96 h-96 -top-20 -left-20 border-4 border-sky-300 dark:border-sky-600 bg-sky-100 dark:bg-sky-900">
+          <!-- Hole Oval Ground (Depan Mole) -->
+          <svg class="w-44 h-16 relative z-10" viewBox="0 0 160 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="80" cy="28" rx="72" ry="24" fill="#3E2723"/>
+            <ellipse cx="80" cy="27" rx="64" ry="18" fill="#1F1310"/>
+            <!-- Dirt Rim -->
+            <path d="M10 30C25 45 135 45 150 30C136 50 24 50 10 30Z" fill="#5D4037"/>
+          </svg>
+        </div>
+
+        <!-- Wooden Hammer (Palu Kayu) -->
+        <div id="hammerWrapper" class="absolute -top-12 -right-2 z-20 w-32 h-32 origin-bottom-right transform rotate-[-40deg] -translate-y-8 pointer-events-none">
+          <svg class="w-full h-full" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Mallet Handle (Gagang Palu) -->
+            <rect x="75" y="35" width="10" height="75" rx="4" transform="rotate(35 75 35)" fill="#B08968" stroke="#7F5539" stroke-width="2"/>
+            <!-- Handle grip wraps -->
+            <rect x="90" y="75" width="10" height="20" rx="2" transform="rotate(35 90 75)" fill="#7F5539"/>
+            <!-- Mallet Head (Kepala Palu Kayu) -->
+            <g transform="translate(15, 10) rotate(-15)">
+              <rect x="15" y="15" width="46" height="26" rx="4" fill="#9C6644" stroke="#58311E" stroke-width="2.5"/>
+              <!-- Left Bevel Rim -->
+              <rect x="10" y="13" width="7" height="30" rx="3" fill="#7F5539"/>
+              <!-- Right Bevel Rim -->
+              <rect x="59" y="13" width="7" height="30" rx="3" fill="#7F5539"/>
+              <!-- Wood Grain Highlight -->
+              <line x1="22" y1="22" x2="48" y2="22" stroke="#B08968" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="20" y1="28" x2="52" y2="28" stroke="#7F5539" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+
+      <p class="font-mono text-xs text-zinc-300 mt-2 tracking-widest uppercase">Ganti Tema Mode...</p>
     </div>
-    <div id="bg-circle-2"
-        class="bg-circle w-80 h-80 top-1/3 -right-24 border-4 border-sky-400 dark:border-sky-500 bg-sky-200 dark:bg-sky-950">
-    </div>
-    <div id="bg-circle-3"
-        class="bg-circle w-72 h-72 -bottom-10 left-1/4 border-4 border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-slate-800">
-    </div>
+  </div>
 
-    <!-- Container Toast Notifikasi Melayang -->
-    <div id="toast-container" class="fixed top-20 right-5 z-[60] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
-    </div>
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-paper-bg/90 dark:bg-charcoal-bg/90 backdrop-blur-md border-b border-paper-border dark:border-charcoal-border transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="group flex items-center gap-2">
+        <span class="font-bold tracking-tighter text-xl text-paper-ink dark:text-charcoal-ink font-sans">
+          minded<span class="text-neutral-400 dark:text-neutral-600">.</span>
+        </span>
+        <span class="hidden sm:inline-block font-mono text-[11px] px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border text-paper-muted dark:text-charcoal-muted">
+          PPLG '26
+        </span>
+      </a>
 
-    <!-- Wrapper Utama App (Semua konten di depan: relative z-10) -->
-    <div class="relative z-10 flex flex-col min-h-screen">
-
-        <!-- Top Greeting Banner (Santai khas anak SMK) -->
-        <header
-            class="relative z-10 bg-gradient-to-r from-sky-500 via-sky-600 to-sky-700 text-white py-4 px-4 sm:px-6 shadow-md transition-all">
-            <div
-                class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-                <div class="flex items-center gap-3">
-                    <span
-                        class="w-10 h-10 rounded-xl bg-white text-sky-600 flex items-center justify-center font-extrabold text-xl shadow">
-                        &lt;/&gt;
-                    </span>
-                    <div>
-                        <h1 class="text-lg sm:text-xl font-bold tracking-tight">Halo, selamat datang di webku! 👋</h1>
-                        <p class="text-xs sm:text-sm text-sky-100 font-medium">Portofolio</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span
-                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/30">
-                        <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                        Lagi rajin ngoding
-                    </span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Navbar Sticky -->
-        <div id="navbar-placeholder" class="hidden"></div>
-        <nav id="main-navbar"
-            class="relative z-40 w-full bg-white/95 dark:bg-slate-900/95 border-b border-sky-100 dark:border-slate-800 transition-all duration-300">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-
-                    <!-- Logo & Brand -->
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-sky-500 text-white flex items-center justify-center shadow">
-                            <i class="fa-solid fa-code text-base"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-base font-extrabold tracking-tight text-slate-800 dark:text-white">Web<span
-                                    class="text-sky-500">Porto</span></span>
-                            <span
-                                class="text-[10px] block font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-widest -mt-1">Kelas
-                                11 RPL B</span>
-                        </div>
-                    </div>
-
-                    <!-- Tab Navigation Menu (Desktop & Tablet) -->
-                    <div class="flex items-center gap-1 sm:gap-2">
-                        <button onclick="switchTab('beranda')" id="nav-btn-beranda"
-                            class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500 text-white shadow-sm">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Beranda</span>
-                        </button>
-                        <button onclick="switchTab('tentang')" id="nav-btn-tentang"
-                            class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-sky-500 hover:bg-sky-50 dark:hover:bg-slate-800">
-                            <i class="fa-solid fa-user-astronaut"></i>
-                            <span>Tentangku</span>
-                        </button>
-                        <button onclick="switchTab('pelajaran')" id="nav-btn-pelajaran"
-                            class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-sky-500 hover:bg-sky-50 dark:hover:bg-slate-800">
-                            <i class="fa-solid fa-book-open"></i>
-                            <span>Pelajaran</span>
-                        </button>
-                    </div>
-
-                    <!-- Action Buttons: Dark Mode Toggle -->
-                    <div class="flex items-center gap-2">
-                        <button id="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode"
-                            class="p-2.5 rounded-xl border border-sky-200 dark:border-slate-700 bg-sky-50 dark:bg-slate-800 text-sky-600 dark:text-sky-400 hover:scale-105 active:scale-95 transition-all shadow-sm">
-                            <i id="theme-icon" class="fa-solid fa-moon text-base"></i>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
+      <!-- Desktop Nav & Actions -->
+      <div class="hidden lg:flex items-center gap-6">
+        <nav class="flex items-center gap-5 font-mono text-xs tracking-wider uppercase">
+          <a href="#about" class="text-paper-muted dark:text-charcoal-muted hover:text-paper-ink dark:hover:text-charcoal-ink transition-colors">
+            [ 01 // Interests ]
+          </a>
+          <a href="#mapel" class="text-paper-muted dark:text-charcoal-muted hover:text-paper-ink dark:hover:text-charcoal-ink transition-colors">
+            [ 02 // Kurikulum ]
+          </a>
         </nav>
 
-        <!-- Konten Utama + Sidebar (CSS Grid Layout) -->
-        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div class="w-px h-4 bg-paper-border dark:bg-charcoal-border"></div>
 
-                <!-- ========================================== -->
-                <!-- AREA KONTEN UTAMA (Porsi Lebih Lebar) -->
-                <!-- ========================================== -->
-                <div class="lg:col-span-8 space-y-6">
+        <!-- Whack-A-Mole Theme Toggle Button (Desktop) -->
+        <button id="themeToggleDesktop" class="theme-btn px-3 py-1.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:bg-neutral-100 dark:hover:bg-neutral-800 font-mono text-xs text-paper-ink dark:text-charcoal-ink flex items-center gap-2 transition-colors active:scale-95 shadow-2xs">
+          <span class="mode-icon text-sm">🔨</span>
+          <span class="mode-label">Mode Tema</span>
+        </button>
+      </div>
 
-                    <!-- ---------------------------------------- -->
-                    <!-- 1. TAB: BERANDA                          -->
-                    <!-- ---------------------------------------- -->
-                    <section id="tab-beranda" class="tab-content block space-y-6">
+      <!-- Mobile Nav Trigger & Theme Button -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <!-- Theme Button Mobile -->
+        <button id="themeToggleMobile" class="theme-btn p-2 rounded border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm active:scale-95">
+          🔨
+        </button>
 
-                        <!-- Hero Card Santai -->
-                        <div
-                            class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
-                            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-                                <!-- Avatar Avatar Visual -->
-                                <div class="relative shrink-0">
-                                    <div
-                                        class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-300 flex items-center justify-center text-white text-4xl shadow-md border-4 border-white dark:border-slate-800">
-                                        <i class="fa-solid fa-laptop-code"></i>
-                                    </div>
-                                    <span
-                                        class="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-900 shadow">
-                                        XI RPL B
-                                    </span>
-                                </div>
-
-                                <div class="text-center sm:text-left space-y-3 flex-1">
-                                    <div
-                                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
-                                        <i class="fa-solid fa-sparkles text-amber-500"></i> Portofolio
-                                    </div>
-                                    <h2
-                                        class="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-white leading-tight">
-                                        Yow!! Aku siswa <span class="text-sky-500">10 PPLG</span> yang lagi suka ngulik
-                                        kode & baca komik.
-                                    </h2>
-                                    <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-                                        Selamat datang di website pribadiku! Di sini kamu bisa tau hal-hal yang sering
-                                        aku lakuin kalau lagi gabut, mapel yang dipelajari di kelasku, sampai cek widget
-                                        cuaca dan berita terkini. Santai aja, keliling sepuasnya ya masbro!
-                                    </p>
-
-                                    <div class="pt-2 flex flex-wrap justify-center sm:justify-start gap-3">
-                                        <button onclick="switchTab('tentang')"
-                                            class="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-sky-500/20 active:scale-95 transition-all flex items-center gap-2">
-                                            <i class="fa-solid fa-compass"></i> Hobi & Profilku
-                                        </button>
-                                        <button onclick="switchTab('pelajaran')"
-                                            class="px-4 py-2.5 rounded-xl border border-sky-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-sky-500 font-semibold text-xs sm:text-sm active:scale-95 transition-all flex items-center gap-2">
-                                            <i class="fa-solid fa-graduation-cap"></i> Cek Mapel Kelasku
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Highlight Cards -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
-                            <div
-                                class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-sky-100 dark:bg-sky-900/60 text-sky-500 flex items-center justify-center text-lg mb-3">
-                                    <i class="fa-solid fa-book-skull"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1">Novel & Manhwa</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Favorit genre action dan
-                                    adventure.</p>
-                            </div>
-
-                            <div
-                                class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-500 flex items-center justify-center text-lg mb-3">
-                                    <i class="fa-solid fa-gamepad"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1">Push Rank & Santai
-                                </h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Ngasah taktik di MLBB dan survive
-                                    di Magic Survival.</p>
-                            </div>
-
-                            <div
-                                class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 text-indigo-500 flex items-center justify-center text-lg mb-3">
-                                    <i class="fa-solid fa-code"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-800 dark:text-white text-sm mb-1">PPLG Squad</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Lagi mendalami HTML, CSS,
-                                    JavaScript, sama otak-atik router.</p>
-                            </div>
-                        </div>
-
-                        <!-- Catatan Harian Santai -->
-                        <div
-                            class="relative z-10 bg-sky-50 dark:bg-slate-900/80 border border-sky-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm">
-                            <div class="flex items-start gap-4">
-                                <span
-                                    class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center text-lg shrink-0 shadow">
-                                    <i class="fa-solid fa-lightbulb"></i>
-                                </span>
-                                <div class="space-y-1">
-                                    <h4 class="font-bold text-slate-800 dark:text-white text-sm sm:text-base">Catatan
-                                        Siswa PPLG Hari Ini</h4>
-                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                        "Ngoding itu mirip main teka-teki. Kalau error, jangan langsung pusing. Tarik
-                                        nafas, minum teh, baca dokumentasi, terus cari titik koma yang ketinggalan!"
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-
-                    <!-- ---------------------------------------- -->
-                    <!-- 2. TAB: TENTANG AKU (Profil & Hobi)      -->
-                    <!-- ---------------------------------------- -->
-                    <section id="tab-tentang" class="tab-content hidden space-y-6">
-
-                        <!-- Intro Profil -->
-                        <div
-                            class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div
-                                    class="w-8 h-8 rounded-lg bg-sky-500 text-white flex items-center justify-center text-sm">
-                                    <i class="fa-solid fa-address-card"></i>
-                                </div>
-                                <h2 class="text-xl font-bold text-slate-800 dark:text-white">Kalau lagi gabut aku
-                                    suka...</h2>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                Di luar jam sekolah dan ngerjain tugas kode, ini beberapa hobi yang bikin hari-hariku
-                                tetap berwarna. Ada novel, manhwa, nulis ide cerita, sampai gaming tipis-tipis.
-                            </p>
-                        </div>
-
-                        <!-- List Card Hobi -->
-                        <div id="hobi-list-container" class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-                            <!-- Card 1: Baca Novel -->
-                            <div
-                                class="hobi-card relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
-                                            <i class="fa-solid fa-book-bookmark"></i> Novel
-                                        </span>
-                                        <i class="fa-solid fa-feather text-sky-400"></i>
-                                    </div>
-                                    <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1.5">Baca novel
-                                        (Revered Insanity, ORV, Nano Machine)</h3>
-                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        Suka nyelam ke dunia fantasi yang plotnya tajam dan MC-nya cerdas.
-                                    </p>
-                                </div>
-                                <div
-                                    class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
-                                    #FantasyLovers #SmartMC
-                                </div>
-                            </div>
-
-                            <!-- Card 2: Baca Manhwa -->
-                            <div
-                                class="hobi-card relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-                                            <i class="fa-solid fa-images"></i> Manhwa
-                                        </span>
-                                        <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
-                                    </div>
-                                    <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1.5">Baca manhwa
-                                        (Pick Me Up, Magic Emperor, The World After the Fall)</h3>
-                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        Cari hiburan visual yang aksinya seru dan ada sistem leveling.
-                                    </p>
-                                </div>
-                                <div
-                                    class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
-                                    #Action #Leveling #VisualArt
-                                </div>
-                            </div>
-
-                            <!-- Card 3: Menulis -->
-                            <div
-                                class="hobi-card relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-                                            <i class="fa-solid fa-pen-nib"></i> Menulis
-                                        </span>
-                                        <i class="fa-solid fa-lightbulb text-amber-400"></i>
-                                    </div>
-                                    <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1.5">Nulis
-                                        cerpen/novel</h3>
-                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        Buat nyalurin imajinasi liar kalau lagi gabut atau bosen.
-                                    </p>
-                                </div>
-                                <div
-                                    class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
-                                    #CreativeWriting #Storyteller
-                                </div>
-                            </div>
-
-                            <!-- Card 4: Main Game -->
-                            <div
-                                class="hobi-card relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:border-sky-300 dark:hover:border-sky-600 transition-all flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                                            <i class="fa-solid fa-gamepad"></i> Gaming
-                                        </span>
-                                        <i class="fa-solid fa-trophy text-emerald-400"></i>
-                                    </div>
-                                    <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1.5">Main game
-                                        (Mobile Legends, Magic Survival)</h3>
-                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        Buat ngasah strategi atau sekadar ngelepas penat.
-                                    </p>
-                                </div>
-                                <div
-                                    class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
-                                    #Strategy #ChillGame
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Form Tambah Hobi Baru -->
-                        <div
-                            class="relative z-10 bg-white dark:bg-slate-900 border border-sky-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span
-                                    class="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-400 flex items-center justify-center text-sm font-bold">
-                                    <i class="fa-solid fa-plus"></i>
-                                </span>
-                                <h3 class="font-bold text-slate-800 dark:text-white text-base">Punya ide hobi lain?
-                                    Tambahin di sini!</h3>
-                            </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                                Kamu bisa coba ketik hobi baru yang seru buat ditambahin ke daftar di atas langsung
-                                lewat form ini.
-                            </p>
-
-                            <form id="form-tambah-hobi" onsubmit="tambahHobiBaru(event)" class="space-y-3">
-                                <div>
-                                    <label for="input-judul-hobi"
-                                        class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nama
-                                        Hobi</label>
-                                    <input type="text" id="input-judul-hobi"
-                                        placeholder="Contoh: Belajar Python / Desain UI"
-                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-sky-500 transition-all">
-                                </div>
-                                <div>
-                                    <label for="input-deskripsi-hobi"
-                                        class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Alasan
-                                        / Deskripsi Singkat</label>
-                                    <input type="text" id="input-deskripsi-hobi"
-                                        placeholder="Contoh: Asyik banget buat ngasah logika otomasi"
-                                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-sky-500 transition-all">
-                                </div>
-                                <button type="submit"
-                                    class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-sky-500/20 active:scale-95 transition-all flex items-center gap-2">
-                                    <i class="fa-solid fa-paper-plane"></i> Tambah Hobi Baru
-                                </button>
-                            </form>
-                        </div>
-
-                    </section>
-
-                    <!-- ---------------------------------------- -->
-                    <!-- 3. TAB: PELAJARAN KELASKU                -->
-                    <!-- ---------------------------------------- -->
-                    <section id="tab-pelajaran" class="tab-content hidden space-y-6">
-
-                        <div
-                            class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div
-                                    class="w-8 h-8 rounded-lg bg-sky-500 text-white flex items-center justify-center text-sm">
-                                    <i class="fa-solid fa-graduation-cap"></i>
-                                </div>
-                                <h2 class="text-xl font-bold text-slate-800 dark:text-white">Ini daftar mapel kelasku
-                                    (Kelas 10 PPLG)</h2>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                Di jurusan Pengembangan Perangkat Lunak dan Gim (PPLG), kita nggak cuma belajar ngoding,
-                                tapi juga tetep dapet bekal pelajaran umum biar wawasannya luas dan seimbang!
-                            </p>
-                        </div>
-
-                        <!-- Mapel Kejuruan (PPLG) -->
-                        <div class="space-y-3 relative z-10">
-                            <div class="flex items-center justify-between">
-                                <h3
-                                    class="text-sm sm:text-base font-extrabold text-slate-800 dark:text-white flex items-center gap-2">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
-                                    Mata Pelajaran Kejuruan (PPLG)
-                                </h3>
-                                <span
-                                    class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-300">
-                                    Fokus Utama
-                                </span>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <!-- Kejuruan 1 -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border-2 border-sky-300 dark:border-sky-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
-                                    <div
-                                        class="w-10 h-10 rounded-lg bg-sky-500 text-white flex items-center justify-center text-lg mb-3 shadow-sm">
-                                        <i class="fa-solid fa-code"></i>
-                                    </div>
-                                    <h4 class="font-bold text-slate-800 dark:text-white text-sm sm:text-base mb-1">
-                                        Pemrograman Web</h4>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                        Belajar bikin web dari nol pakai HTML, CSS, PHP.
-                                    </p>
-                                    <div
-                                        class="mt-3 inline-block text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                        HTML • CSS • PHP
-                                    </div>
-                                </div>
-
-                                <!-- Kejuruan 2 -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border-2 border-sky-300 dark:border-sky-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
-                                    <div
-                                        class="w-10 h-10 rounded-lg bg-sky-600 text-white flex items-center justify-center text-lg mb-3 shadow-sm">
-                                        <i class="fa-solid fa-network-wired"></i>
-                                    </div>
-                                    <h4 class="font-bold text-slate-800 dark:text-white text-sm sm:text-base mb-1">
-                                        Komputer Jaringan Dasar</h4>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                        Bongkar PC & setting router.
-                                    </p>
-                                    <div
-                                        class="mt-3 inline-block text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                        Hardware • LAN • Router
-                                    </div>
-                                </div>
-
-                                <!-- Kejuruan 3 -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border-2 border-sky-300 dark:border-sky-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
-                                    <div
-                                        class="w-10 h-10 rounded-lg bg-sky-700 text-white flex items-center justify-center text-lg mb-3 shadow-sm">
-                                        <i class="fa-solid fa-laptop"></i>
-                                    </div>
-                                    <h4 class="font-bold text-slate-800 dark:text-white text-sm sm:text-base mb-1">
-                                        Informatika</h4>
-                                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                        Main Word, Excel, sama belajar basic Bootstrap.
-                                    </p>
-                                    <div
-                                        class="mt-3 inline-block text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-slate-800 px-2 py-0.5 rounded">
-                                        Office • UI Framework
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mapel Umum (8 Mapel) -->
-                        <div class="space-y-3 pt-2 relative z-10">
-                            <div class="flex items-center justify-between">
-                                <h3
-                                    class="text-sm sm:text-base font-extrabold text-slate-800 dark:text-white flex items-center gap-2">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-600"></span>
-                                    Mata Pelajaran Umum
-                                </h3>
-                                <span
-                                    class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                                    8 Pelajaran
-                                </span>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-
-                                <!-- 1. Seni Budaya -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-pink-100 dark:bg-pink-950 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-palette"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Seni Budaya</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Biar makin kreatif
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- 2. Matematika -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-calculator"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Matematika</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ngasah logika</p>
-                                    </div>
-                                </div>
-
-                                <!-- 3. Sejarah -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-landmark"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Sejarah</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Belajar dari masa
-                                            lalu</p>
-                                    </div>
-                                </div>
-
-                                <!-- 4. Bahasa Indonesia -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-book"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Bahasa Indonesia
-                                        </h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Belajar tata bahasa
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- 5. Bahasa Inggris -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-globe"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Bahasa Inggris</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Penting banget buat
-                                            baca doc coding</p>
-                                    </div>
-                                </div>
-
-                                <!-- 6. Bahasa Jawa -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-scroll"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Bahasa Jawa</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ngelestariin budaya
-                                            lokal</p>
-                                    </div>
-                                </div>
-
-                                <!-- 7. Penjas -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-teal-100 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-person-running"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Penjas</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Biar fisik tetep
-                                            bugar meski keseringan duduk depan PC</p>
-                                    </div>
-                                </div>
-
-                                <!-- 8. IPAS -->
-                                <div
-                                    class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3.5 hover:border-sky-300 dark:hover:border-sky-600 transition-all">
-                                    <div
-                                        class="w-9 h-9 rounded-lg bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0 text-sm">
-                                        <i class="fa-solid fa-flask-vial"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">IPAS</h4>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Biar paham fenomena
-                                            alam</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </section>
-
-                </div>
-
-                <!-- ========================================== -->
-                <!-- AREA SIDEBAR STATIS (Selalu Kelihatan)     -->
-                <!-- ========================================== -->
-                <aside class="relative z-10 lg:col-span-4 space-y-6">
-
-                    <!-- Header Penanda Sidebar -->
-                    <div class="flex items-center justify-between px-1">
-                        <span
-                            class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-                            <i class="fa-solid fa-cube text-sky-500"></i> Widget API
-                        </span>
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-300">
-                            Live Data
-                        </span>
-                    </div>
-
-                    <!-- ---------------------------------------- -->
-                    <!-- WIDGET 1: CUACA                          -->
-                    <!-- ---------------------------------------- -->
-                    <div
-                        class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3
-                                class="font-bold text-sm sm:text-base text-slate-800 dark:text-white flex items-center gap-2">
-                                <i class="fa-solid fa-cloud-sun text-sky-500"></i> Cuaca Hari Ini
-                            </h3>
-                            <span id="weather-badge"
-                                class="text-[10px] font-semibold text-slate-400 dark:text-slate-500">
-                                Default: Karanganyar
-                            </span>
-                        </div>
-
-                        <!-- Form Cari Kota -->
-                        <div class="flex gap-2 mb-4">
-                            <div class="relative flex-1">
-                                <i class="fa-solid fa-location-dot absolute left-3 top-3 text-xs text-slate-400"></i>
-                                <input type="text" id="weather-search-input" placeholder="Ketik nama kota..."
-                                    class="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white text-xs focus:outline-none focus:border-sky-500 transition-all">
-                            </div>
-                            <button onclick="cariCuaca()"
-                                class="px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-xs active:scale-95 transition-all shadow-sm flex items-center gap-1.5 shrink-0">
-                                <i class="fa-solid fa-magnifying-glass"></i> Cari
-                            </button>
-                        </div>
-
-                        <!-- Display Info Cuaca -->
-                        <div id="weather-display"
-                            class="bg-gradient-to-br from-sky-500 to-sky-600 text-white rounded-xl p-4 shadow">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="flex items-center gap-1 text-xs text-sky-100 font-medium">
-                                        <i class="fa-solid fa-city"></i>
-                                        <span id="weather-city-name">Karanganyar</span>
-                                    </div>
-                                    <div class="text-3xl font-extrabold mt-1 tracking-tight" id="weather-temp">--°C
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <div id="weather-icon-container" class="text-3xl text-sky-100">
-                                        <i class="fa-solid fa-cloud-sun text-amber-300"></i>
-                                    </div>
-                                    <div id="weather-desc" class="text-xs font-semibold text-sky-100 mt-1">Memuat cuaca...</div>
-                                </div>
-                            </div>
-
-                            <!-- Detail Kelembapan & Angin -->
-                            <div
-                                class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-sky-400/40 text-xs text-sky-100">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-droplet text-sky-200"></i>
-                                    <span>Lembap: <strong id="weather-humidity" class="text-white">--%</strong></span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-wind text-sky-200"></i>
-                                    <span>Angin: <strong id="weather-wind" class="text-white">-- km/h</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ---------------------------------------- -->
-                    <!-- WIDGET 2: QUOTE INSPIRATIF (REAL API)    -->
-                    <!-- ---------------------------------------- -->
-                    <div
-                        class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3
-                                class="font-bold text-sm sm:text-base text-slate-800 dark:text-white flex items-center gap-2">
-                                <i class="fa-solid fa-quote-left text-sky-500"></i> Quote Inspiratif
-                            </h3>
-                            <span
-                                class="text-[10px] font-bold text-amber-500 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded">
-                                Live API
-                            </span>
-                        </div>
-
-                        <!-- Kotak Teks Kutipan -->
-                        <div id="quote-box"
-                            class="bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 rounded-xl p-4 min-h-[120px] flex flex-col justify-between transition-all">
-                            <p id="quote-text"
-                                class="text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic font-medium leading-relaxed">
-                                "Memuat quote bijak..."
-                            </p>
-                            <div
-                                class="mt-3 flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-700">
-                                <span id="quote-author" class="text-[11px] font-bold text-sky-600 dark:text-sky-400">
-                                    — Memuat...
-                                </span>
-                                <i class="fa-solid fa-feather text-xs text-amber-400"></i>
-                            </div>
-                        </div>
-
-                        <!-- Tombol Ganti Quote -->
-                        <button onclick="fetchQuote()"
-                            class="w-full mt-3 px-3.5 py-2 rounded-xl border border-sky-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-800 text-sky-600 dark:text-sky-400 font-semibold text-xs transition-all flex items-center justify-center gap-2 active:scale-98">
-                            <i id="btn-quote-icon" class="fa-solid fa-rotate"></i> Ganti Quote
-                        </button>
-                    </div>
-
-                    <!-- ---------------------------------------- -->
-                    <!-- WIDGET 3: BERITA TERKINI (REAL API)      -->
-                    <!-- ---------------------------------------- -->
-                    <div
-                        class="relative z-10 bg-white dark:bg-slate-900 border border-sky-100 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3
-                                class="font-bold text-sm sm:text-base text-slate-800 dark:text-white flex items-center gap-2">
-                                <i class="fa-solid fa-newspaper text-sky-500"></i> Berita Terkini
-                            </h3>
-                            <span class="text-[10px] font-semibold text-slate-400 dark:text-slate-500">
-                                Live News API
-                            </span>
-                        </div>
-
-                        <!-- Wadah Berita -->
-                        <div id="news-container" class="space-y-3">
-                            <div
-                                class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-xs text-slate-400 flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-spinner fa-spin text-sky-500"></i> Memuat berita...
-                            </div>
-                        </div>
-                    </div>
-
-                </aside>
-
-            </div>
-        </main>
-
-        <!-- Footer Santai -->
-        <footer
-            class="relative z-10 mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 transition-colors">
-            <div
-                class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-                <div>
-                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                        Dibuat dengan sepenuh hati buat tugas LKPD XI RPL &copy; 2026
-                    </p>
-                    <p class="text-[11px] text-slate-400 dark:text-slate-500">
-                        Frontend murni HTML5 + Tailwind CSS + Anime.js (Ready buat GitHub Pages)
-                    </p>
-                </div>
-                <div class="flex items-center gap-3 text-slate-400 dark:text-slate-500 text-sm">
-                    <span class="text-xs font-semibold text-sky-500">#PPLGMerdeka</span>
-                    <span>•</span>
-                    <span class="text-xs">SMK Bisa!</span>
-                </div>
-            </div>
-        </footer>
+        <!-- Hamburger Button -->
+        <button id="hamburgerBtn" aria-label="Buka Menu Navigasi" class="p-2 rounded border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:bg-neutral-100 dark:hover:bg-neutral-800 text-paper-ink dark:text-charcoal-ink active:scale-95">
+          <svg id="hamburgerIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+          </svg>
+        </button>
+      </div>
 
     </div>
 
-    <!-- ============================================================== -->
-    <!-- JAVASCRIPT: LOGIKA TAB, DARK MODE, ANIME.JS, API, DAN FORM     -->
-    <!-- ============================================================== -->
-    <script>
-        // ==============================================================
-        // KONFIGURASI API KEY (SESUAI PEDOMAN LKPD)
-        // ==============================================================
-        const API_KEY_CUACA = 'e919b74bd829db61dd2f142eaa66b4b1';
-        const API_KEY_BERITA = 'MASUKKAN_API_KEY_DISINI'; // Masukkan API Key NewsAPI di sini (Opsional)
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileDrawer" class="hidden lg:hidden border-b border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface px-6 py-5 space-y-4">
+      <div class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted uppercase tracking-widest border-b border-paper-border dark:border-charcoal-border pb-2">
+        Navigasi Portofolio
+      </div>
+      <a href="#about" class="mobile-link block font-mono text-xs uppercase tracking-wider py-2 text-paper-ink dark:text-charcoal-ink hover:text-neutral-500">
+        [ 01 // Interests & Hobi ]
+      </a>
+      <a href="#mapel" class="mobile-link block font-mono text-xs uppercase tracking-wider py-2 text-paper-ink dark:text-charcoal-ink hover:text-neutral-500">
+        [ 02 // Kurikulum & Mapel ]
+      </a>
+      <a href="#sidebar-widgets" class="mobile-link block font-mono text-xs uppercase tracking-wider py-2 text-paper-ink dark:text-charcoal-ink hover:text-neutral-500">
+        [ 03 // Widgets & Feed ]
+      </a>
+    </div>
+  </header>
 
-        // --------------------------------------------------------------
-        // 2. SISTEM NOTIFIKASI TOAST (Meluncur & Melayang Anime.js)
-        // --------------------------------------------------------------
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
+  <!-- ================= MAIN CONTAINER (TWO-COLUMN GRID) ================= -->
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
 
-            const isError = type === 'error';
-            const isSuccess = type === 'success';
+      <!-- ======================================================== -->
+      <!-- KOLOM KIRI / KONTEN UTAMA (lg:col-span-8)                 -->
+      <!-- ======================================================== -->
+      <main class="lg:col-span-8 space-y-16 sm:space-y-24 min-w-0">
 
-            const bgClass = isError
-                ? 'bg-rose-500 text-white border-rose-600'
-                : isSuccess
-                    ? 'bg-emerald-500 text-white border-emerald-600'
-                    : 'bg-sky-500 text-white border-sky-600';
+        <!-- ================= HERO SECTION ================= -->
+        <section id="hero" class="space-y-6 pt-2">
+          
+          <!-- Small Archive Tag -->
+          <div class="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-paper-muted dark:text-charcoal-muted">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>[ Siswa SMK PPLG // Angkatan 2026 ]</span>
+          </div>
 
-            const iconClass = isError
-                ? 'fa-circle-exclamation'
-                : isSuccess
-                    ? 'fa-circle-check'
-                    : 'fa-bell';
+          <!-- Editorial Title -->
+          <h1 class="text-3xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-paper-ink dark:text-charcoal-ink leading-[1.12]">
+            Membangun sistem, merapikan ide.
+          </h1>
 
-            toast.className = `toast-item pointer-events-auto p-3.5 rounded-xl border shadow-lg flex items-center gap-3 text-xs sm:text-sm font-semibold opacity-0 ${bgClass} toast-floating`;
-            toast.innerHTML = `
-        <i class="fa-solid ${iconClass} text-base shrink-0"></i>
-        <div class="flex-1">${message}</div>
-        <button onclick="this.parentElement.remove()" class="opacity-80 hover:opacity-100 text-xs shrink-0">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      `;
+          <!-- Casual Copywriting -->
+          <p class="text-base sm:text-lg text-paper-muted dark:text-charcoal-muted leading-relaxed font-normal max-w-2xl">
+            Kenalin, gue <strong class="text-paper-ink dark:text-charcoal-ink font-semibold">Zulfikar</strong>. Fokus di rekayasa perangkat lunak. Portofolio ini tempat gue naruh eksperimen baris kode dan hal-hal yang gue kulik.
+          </p>
 
-            container.appendChild(toast);
+          <!-- Studio Metadata Strip -->
+          <div class="pt-6 border-t border-paper-border dark:border-charcoal-border grid grid-cols-2 sm:grid-cols-3 gap-4 font-mono text-xs text-paper-muted dark:text-charcoal-muted">
+            <div>
+              <span class="block text-[10px] uppercase text-neutral-400 dark:text-neutral-600">Jurusan</span>
+              <span class="text-paper-ink dark:text-charcoal-ink font-medium">PPLG (SMK)</span>
+            </div>
+            <div>
+              <span class="block text-[10px] uppercase text-neutral-400 dark:text-neutral-600">Fase / Kelas</span>
+              <span class="text-paper-ink dark:text-charcoal-ink font-medium">Kelas 11</span>
+            </div>
+            <div>
+              <span class="block text-[10px] uppercase text-neutral-400 dark:text-neutral-600">Status</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-medium">Aktif Eksplorasi</span>
+            </div>
+          </div>
 
-            // Animasi Anime.js: Masuk meluncur dari atas
-            anime({
-                targets: toast,
-                translateY: [-30, 0],
-                opacity: [0, 1],
-                duration: 400,
-                easing: 'easeOutCubic'
-            });
+        </section>
 
-            // Hilang otomatis setelah 3.5 detik dengan transisi halus
-            setTimeout(() => {
-                anime({
-                    targets: toast,
-                    translateY: [0, -20],
-                    opacity: [1, 0],
-                    duration: 350,
-                    easing: 'easeInCubic',
-                    complete: () => {
-                        if (toast.parentElement) toast.remove();
-                    }
-                });
-            }, 3500);
-        }
+        <!-- ================= SECTION 01: ABOUT / INTERESTS ================= -->
+        <section id="about" class="space-y-8 scroll-mt-24">
+          
+          <!-- Header Bagian -->
+          <div class="flex items-center justify-between pb-3 border-b border-paper-border dark:border-charcoal-border">
+            <h2 class="font-mono text-xs uppercase tracking-widest text-paper-muted dark:text-charcoal-muted flex items-center gap-2">
+              <span class="text-paper-ink dark:text-charcoal-ink font-bold">[ 01 ]</span>
+              <span>INTERESTS &amp; HOBI</span>
+            </h2>
+            <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">Arsip Eksplorasi</span>
+          </div>
 
-        // --------------------------------------------------------------
-        // 3. DARK MODE TOGGLE (Class berbasis HTML)
-        // --------------------------------------------------------------
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
+          <!-- Description -->
+          <p class="text-sm text-paper-muted dark:text-charcoal-muted leading-relaxed">
+            Di luar waktu coding dan ngerjain tugas kelas, ini hal-hal yang biasa nemenin hari-hari gue: novel naratif, strategi game, dan nulis cerita fiksi.
+          </p>
 
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                html.classList.add('dark');
-                icon.className = 'fa-solid fa-sun text-base text-amber-400';
-                html.style.backgroundColor = '#020617';
-            } else {
-                html.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon text-base text-sky-600';
-                html.style.backgroundColor = '#f8fafc';
-            }
-        }
+          <!-- Grid Hobi Bergaya Kartu Arsip -->
+          <div id="interestsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-        let isThemeTransitioning = false;
+            <!-- Card 1 -->
+            <div class="interest-card group p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200">
+              <div class="flex items-center justify-between font-mono text-[11px] text-paper-muted dark:text-charcoal-muted mb-2">
+                <span>[ NOVEL // CULTIVATION ]</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">01</span>
+              </div>
+              <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink mb-1.5 tracking-tight">
+                Revered Insanity
+              </h3>
+              <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed">
+                Kisah kultivasi Fang Yuan yang dingin, logis, dan penuh intrik filosofis tentang makna ketekunan dan kebebasan hidup.
+              </p>
+            </div>
 
-        function toggleDarkMode() {
-            // Mencegah klik berulang saat animasi air terjun sedang berjalan
-            if (isThemeTransitioning) return;
-            isThemeTransitioning = true;
+            <!-- Card 2 -->
+            <div class="interest-card group p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200">
+              <div class="flex items-center justify-between font-mono text-[11px] text-paper-muted dark:text-charcoal-muted mb-2">
+                <span>[ WEBNOVEL // STRATEGY ]</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">02</span>
+              </div>
+              <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink mb-1.5 tracking-tight">
+                Pick Me Up
+              </h3>
+              <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed">
+                Infinite Gacha survival squad. Masterclass soal manajemen resource, ketahanan mental, dan kalkulasi risiko ekstrem.
+              </p>
+            </div>
 
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            const waterfallBg = document.getElementById('waterfall-bg');
-            const willBeDark = !html.classList.contains('dark');
+            <!-- Card 3 -->
+            <div class="interest-card group p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200">
+              <div class="flex items-center justify-between font-mono text-[11px] text-paper-muted dark:text-charcoal-muted mb-2">
+                <span>[ CREATIVE // NARRATIVE ]</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">03</span>
+              </div>
+              <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink mb-1.5 tracking-tight">
+                Menulis Cerita
+              </h3>
+              <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed">
+                Menyusun premis, merancang lore worldbuilding, dan melatih struktur narasi supaya otak tetap seimbang antara logika dan imajinasi.
+              </p>
+            </div>
 
-            // Set warna & styling air terjun background sesuai tema yang dituju
-            if (willBeDark) {
-                // Menuju Dark Mode: Air terjun biru malam pekat & slate gelap
-                waterfallBg.style.background = 'linear-gradient(180deg, #020617 0%, #0b1329 50%, #0f172a 100%)';
-                waterfallBg.style.borderBottom = '4px solid #38bdf8';
-                waterfallBg.style.boxShadow = '0 15px 30px rgba(56, 189, 248, 0.45)';
-            } else {
-                // Menuju Light Mode: Air terjun biru langit segar & putih
-                waterfallBg.style.background = 'linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 60%, #f8fafc 100%)';
-                waterfallBg.style.borderBottom = '4px solid #0284c7';
-                waterfallBg.style.boxShadow = '0 15px 30px rgba(2, 132, 199, 0.35)';
-            }
+            <!-- Card 4 -->
+            <div class="interest-card group p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200">
+              <div class="flex items-center justify-between font-mono text-[11px] text-paper-muted dark:text-charcoal-muted mb-2">
+                <span>[ GAMING // COMPETITIVE ]</span>
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity">04</span>
+              </div>
+              <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink mb-1.5 tracking-tight">
+                Mobile Legends
+              </h3>
+              <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed">
+                Latihan mikro refleks, rotasi makro timing objektif di Land of Dawn. Sarana refreshing bareng teman-teman sekelas.
+              </p>
+            </div>
 
-            // Ganti class 'dark' agar teks, kartu, dan komponen di depan (z-index 10)
-            // langsung bertransisi warna secara mulus bersamaan dengan jatuhnya air terjun di background
-            if (willBeDark) {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                icon.className = 'fa-solid fa-sun text-base text-amber-400';
-                showToast('Mode gelap diaktifkan! Lebih adem di mata 😎', 'info');
-            } else {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                icon.className = 'fa-solid fa-moon text-base text-sky-600';
-                showToast('Mode terang aktif! Terang benderang ✨', 'info');
-            }
+          </div>
 
-            // Reset posisi awal di atas (-100%) sebelum meluncur
-            waterfallBg.style.transform = 'translateY(-100%)';
-
-            // Animasi Anime.js Murni: Air terjun meluncur dari atas ke bawah MURNI DI BACKGROUND (z-index: -1)
-            anime({
-                targets: waterfallBg,
-                translateY: ['-100%', '0%'],
-                duration: 650,
-                easing: 'easeInOutCubic',
-                complete: () => {
-                    // Update warna latar html secara permanen sesuai tema baru
-                    html.style.backgroundColor = willBeDark ? '#020617' : '#f8fafc';
-                    isThemeTransitioning = false;
-                }
-            });
-        }
-
-        // --------------------------------------------------------------
-        // 4. NAVIGASI TAB KONTEN UTAMA (Fade-in & Slide-up Anime.js)
-        // --------------------------------------------------------------
-        function switchTab(tabId) {
-            const tabs = ['beranda', 'tentang', 'pelajaran'];
-
-            tabs.forEach(id => {
-                const contentEl = document.getElementById(`tab-${id}`);
-                const btnEl = document.getElementById(`nav-btn-${id}`);
-
-                if (id === tabId) {
-                    contentEl.classList.remove('hidden');
-                    contentEl.classList.add('block');
-
-                    // Styling tombol tab aktif
-                    btnEl.className = 'tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-sky-500 text-white shadow-sm';
-
-                    // Animasi pergantian tab murni Anime.js (tanpa efek blur)
-                    anime({
-                        targets: contentEl,
-                        opacity: [0, 1],
-                        translateY: [20, 0],
-                        duration: 350,
-                        easing: 'easeOutCubic'
-                    });
-                } else {
-                    contentEl.classList.remove('block');
-                    contentEl.classList.add('hidden');
-
-                    // Styling tombol tab inaktif
-                    btnEl.className = 'tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-sky-500 hover:bg-sky-50 dark:hover:bg-slate-800';
-                }
-            });
-        }
-
-        // --------------------------------------------------------------
-        // 5. STICKY NAVBAR & BACKGROUND PARALLAX SCROLL
-        // --------------------------------------------------------------
-        function initScrollEvents() {
-            const navbar = document.getElementById('main-navbar');
-            const placeholder = document.getElementById('navbar-placeholder');
-            let navTopOffset = navbar.offsetTop;
-
-            window.addEventListener('resize', () => {
-                navTopOffset = navbar.offsetTop;
-            });
-
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-
-                // Sticky Navbar Toggle
-                if (scrollY > 70) {
-                    if (!navbar.classList.contains('fixed')) {
-                        placeholder.style.height = `${navbar.offsetHeight}px`;
-                        placeholder.classList.remove('hidden');
-                        navbar.classList.add('fixed', 'top-0', 'left-0', 'shadow-md');
-                    }
-                } else {
-                    if (navbar.classList.contains('fixed')) {
-                        placeholder.classList.add('hidden');
-                        navbar.classList.remove('fixed', 'top-0', 'left-0', 'shadow-md');
-                    }
-                }
-
-                // Parallax Elemen Background via Anime.js (Halus tanpa blur)
-                anime({
-                    targets: '#bg-circle-1',
-                    translateY: scrollY * 0.15,
-                    duration: 100,
-                    easing: 'linear'
-                });
-                anime({
-                    targets: '#bg-circle-2',
-                    translateY: -scrollY * 0.18,
-                    duration: 100,
-                    easing: 'linear'
-                });
-                anime({
-                    targets: '#bg-circle-3',
-                    translateY: scrollY * 0.1,
-                    duration: 100,
-                    easing: 'linear'
-                });
-            });
-        }
-
-        // --------------------------------------------------------------
-        // 6. FORM TAMBAH HOBI BARU (Animasi Masuk)
-        // --------------------------------------------------------------
-        function tambahHobiBaru(event) {
-            event.preventDefault();
-
-            const judulInput = document.getElementById('input-judul-hobi');
-            const descInput = document.getElementById('input-deskripsi-hobi');
-
-            const judul = judulInput.value.trim();
-            const desc = descInput.value.trim();
-
-            if (!judul) {
-                showToast('Nama hobi nggak boleh kosong ya!', 'error');
-                judulInput.focus();
-                return;
-            }
-
-            if (!desc) {
-                showToast('Tolong isi deskripsi singkatnya juga dong!', 'error');
-                descInput.focus();
-                return;
-            }
-
-            const container = document.getElementById('hobi-list-container');
-            const newCard = document.createElement('div');
-            newCard.className = 'hobi-card relative z-10 bg-white dark:bg-slate-900 border-2 border-sky-400 dark:border-sky-500 rounded-xl p-5 shadow-sm transition-all flex flex-col justify-between opacity-0';
-            newCard.innerHTML = `
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
-              <i class="fa-solid fa-star text-amber-500"></i> Hobi Baru
+          <!-- Form Tambah Hobi / Catatan Baru -->
+          <div class="p-5 rounded-lg border border-dashed border-paper-border dark:border-charcoal-border bg-paper-surface/50 dark:bg-charcoal-surface/50">
+            <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted uppercase block mb-3">
+              + Tambah Eksplorasi / Catatan Baru
             </span>
-            <button onclick="hapusHobi(this)" title="Hapus" class="text-xs text-rose-400 hover:text-rose-600 transition-colors">
-              <i class="fa-solid fa-trash-can"></i>
+            <form id="interestForm" class="flex flex-col sm:flex-row gap-2.5">
+              <input 
+                type="text" 
+                id="interestTitle" 
+                placeholder="Judul hobi / topik..." 
+                class="flex-1 bg-paper-surface dark:bg-charcoal-surface border border-paper-border dark:border-charcoal-border rounded px-3 py-2 text-xs text-paper-ink dark:text-charcoal-ink placeholder-paper-muted dark:placeholder-charcoal-muted focus:outline-none focus:border-paper-ink dark:focus:border-charcoal-ink"
+                required
+              >
+              <input 
+                type="text" 
+                id="interestDesc" 
+                placeholder="Deskripsi singkat..." 
+                class="flex-1 bg-paper-surface dark:bg-charcoal-surface border border-paper-border dark:border-charcoal-border rounded px-3 py-2 text-xs text-paper-ink dark:text-charcoal-ink placeholder-paper-muted dark:placeholder-charcoal-muted focus:outline-none focus:border-paper-ink dark:focus:border-charcoal-ink"
+                required
+              >
+              <button 
+                type="submit" 
+                class="px-4 py-2 rounded bg-paper-ink dark:bg-charcoal-ink text-paper-bg dark:text-charcoal-bg font-mono text-xs font-semibold hover:opacity-90 active:scale-95 transition-all shrink-0"
+              >
+                Tambah
+              </button>
+            </form>
+          </div>
+
+        </section>
+
+        <!-- ================= SECTION 02: KURIKULUM & MAPEL ================= -->
+        <section id="mapel" class="space-y-8 scroll-mt-24">
+          
+          <!-- Header Bagian -->
+          <div class="flex items-center justify-between pb-3 border-b border-paper-border dark:border-charcoal-border">
+            <h2 class="font-mono text-xs uppercase tracking-widest text-paper-muted dark:text-charcoal-muted flex items-center gap-2">
+              <span class="text-paper-ink dark:text-charcoal-ink font-bold">[ 02 ]</span>
+              <span>KURIKULUM KELAS 10 PPLG</span>
+            </h2>
+            <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">Kurikulum Merdeka</span>
+          </div>
+
+          <!-- Kejuruan PPLG (Kartu Beralur Hairline) -->
+          <div class="space-y-4">
+            <span class="font-mono text-xs uppercase tracking-wider text-paper-muted dark:text-charcoal-muted block">
+              Mata Pelajaran Kejuruan (Fase E):
+            </span>
+
+            <div class="space-y-3">
+              
+              <!-- Mapel 1: Pemrograman Web -->
+              <div class="p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink tracking-tight flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    Pemrograman Web
+                  </h3>
+                  <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">[ WEB-PROG ]</span>
+                </div>
+                <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed mb-3">
+                  Pondasi arsitektur website: HTML5 semantik, CSS Box Model &amp; Flexbox responsif, serta pengenalan logika JavaScript untuk manipulasi elemen DOM.
+                </p>
+                <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#HTML5</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#CSS3Flexbox</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#DOMManipulation</span>
+                </div>
+              </div>
+
+              <!-- Mapel 2: Komputer & Jaringan Dasar -->
+              <div class="p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink tracking-tight flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Komputer &amp; Jaringan Dasar (Komjardas)
+                  </h3>
+                  <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">[ KOMJARDAS ]</span>
+                </div>
+                <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed mb-3">
+                  Pemahaman arsitektur perangkat keras, instruksi CLI Linux dasar, instalasi OS, pengkabelan LAN UTP, serta pengalamatan IPv4 dan subnetting.
+                </p>
+                <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#Hardware</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#LinuxCLI</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#IPv4Subnetting</span>
+                </div>
+              </div>
+
+              <!-- Mapel 3: Informatika -->
+              <div class="p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink tracking-tight flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    Informatika
+                  </h3>
+                  <span class="font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">[ INFORMATIKA ]</span>
+                </div>
+                <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed mb-3">
+                  Berpikir komputasional (Computational Thinking), analisis logika flowchart, translasi algoritma ke pseudocode, serta etika digital masyarakat komputasi.
+                </p>
+                <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#ComputationalThinking</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#Flowchart</span>
+                  <span class="px-2 py-0.5 rounded border border-paper-border dark:border-charcoal-border bg-paper-bg dark:bg-charcoal-bg">#Algoritma</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Mata Pelajaran Umum (Pill Badges Minimalis) -->
+          <div class="space-y-3 pt-4 border-t border-paper-border dark:border-charcoal-border">
+            <span class="font-mono text-xs uppercase tracking-wider text-paper-muted dark:text-charcoal-muted block">
+              Mata Pelajaran Umum:
+            </span>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                Seni Budaya
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                Matematika
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                Sejarah
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                B. Indonesia
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                B. Inggris
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                B. Jawa
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                Penjas (PJOK)
+              </span>
+              <span class="px-3 py-1 rounded-full border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface font-mono text-xs text-paper-ink dark:text-charcoal-ink shadow-2xs">
+                IPAS
+              </span>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- ======================================================== -->
+      <!-- KOLOM KANAN / SIDEBAR WIDGET (lg:col-span-4)               -->
+      <!-- ======================================================== -->
+      <aside id="sidebar-widgets" class="lg:col-span-4 lg:sticky lg:top-24 h-fit space-y-6 min-w-0">
+
+        <!-- ================= WIDGET 1: CUACA OPENWEATHER ================= -->
+        <div class="widget-box p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface shadow-2xs">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-paper-border dark:border-charcoal-border mb-3 font-mono text-xs">
+            <span class="uppercase tracking-wider text-paper-muted dark:text-charcoal-muted flex items-center gap-1.5">
+              <span>☁️</span>
+              <span>Cuaca Terkini</span>
+            </span>
+            <span id="weatherTime" class="text-[10px] text-paper-muted dark:text-charcoal-muted">--:--</span>
+          </div>
+
+          <!-- Form Cari Kota -->
+          <form id="weatherSearchForm" class="flex gap-1.5 mb-3">
+            <input 
+              type="text" 
+              id="weatherCityInput" 
+              placeholder="Ketik kota (default: Karanganyar)..." 
+              class="flex-1 bg-paper-bg dark:bg-charcoal-bg border border-paper-border dark:border-charcoal-border rounded px-2.5 py-1.5 text-xs text-paper-ink dark:text-charcoal-ink placeholder-paper-muted dark:placeholder-charcoal-muted focus:outline-none focus:border-paper-ink dark:focus:border-charcoal-ink"
+            >
+            <button 
+              type="submit" 
+              class="px-2.5 py-1.5 rounded bg-paper-ink dark:bg-charcoal-ink text-paper-bg dark:text-charcoal-bg font-mono text-xs hover:opacity-90 active:scale-95 transition-all"
+            >
+              Cari
+            </button>
+          </form>
+
+          <!-- Weather Error Box (Render inside card) -->
+          <div id="weatherErrorBox" class="hidden p-2.5 rounded bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400 text-xs mb-3">
+            <!-- Pesan error diinjeksi via JS -->
+          </div>
+
+          <!-- Main Weather Data -->
+          <div id="weatherContent" class="space-y-3">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span id="weatherTemp" class="text-4xl font-extrabold tracking-tight text-paper-ink dark:text-charcoal-ink">
+                  --&deg;C
+                </span>
+                <p id="weatherCityName" class="text-xs font-medium text-paper-muted dark:text-charcoal-muted mt-0.5">
+                  Memuat data...
+                </p>
+              </div>
+              <div id="weatherConditionIcon" class="text-3xl">
+                🌤️
+              </div>
+            </div>
+
+            <p id="weatherDesc" class="text-xs font-medium text-paper-ink dark:text-charcoal-ink capitalize">
+              Menghubungkan ke satelit cuaca...
+            </p>
+
+            <div class="pt-2 border-t border-paper-border dark:border-charcoal-border grid grid-cols-2 gap-2 font-mono text-[11px] text-paper-muted dark:text-charcoal-muted">
+              <div>
+                <span class="block text-[10px] uppercase">Kelembapan</span>
+                <strong id="weatherHumidity" class="text-paper-ink dark:text-charcoal-ink font-semibold">--%</strong>
+              </div>
+              <div>
+                <span class="block text-[10px] uppercase">Kecepatan Angin</span>
+                <strong id="weatherWind" class="text-paper-ink dark:text-charcoal-ink font-semibold">-- m/s</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= WIDGET 2: QUOTE EDITORIAL ================= -->
+        <div class="widget-box p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface shadow-2xs">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-paper-border dark:border-charcoal-border mb-3 font-mono text-xs">
+            <span class="uppercase tracking-wider text-paper-muted dark:text-charcoal-muted flex items-center gap-1.5">
+              <span>📖</span>
+              <span>Kutipan Hari Ini</span>
+            </span>
+            <button id="refreshQuoteBtn" class="hover:text-paper-ink dark:hover:text-charcoal-ink text-paper-muted dark:text-charcoal-muted transition-colors flex items-center gap-1 text-[11px]">
+              <span>Ganti</span> &rarr;
             </button>
           </div>
-          <h3 class="font-bold text-slate-800 dark:text-white text-base mb-1.5">${judul}</h3>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">${desc}</p>
+
+          <!-- Quote Text with Serif/Italic Style -->
+          <div id="quoteWrapper" class="py-2 min-h-[90px] flex flex-col justify-center">
+            <p id="quoteContent" class="font-serif italic text-base sm:text-lg text-paper-ink dark:text-charcoal-ink leading-relaxed">
+              "Memuat kutipan inspirasi..."
+            </p>
+            <p id="quoteAuthor" class="font-mono text-xs text-paper-muted dark:text-charcoal-muted mt-2">
+              — DummyJSON Quotes
+            </p>
+          </div>
+
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-sky-500 font-medium">
-          #HobiKeren #TambahanKamu
+
+        <!-- ================= WIDGET 3: DEV.TO BERITA TEKNOLOGI ================= -->
+        <div class="widget-box p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface shadow-2xs">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-paper-border dark:border-charcoal-border mb-3 font-mono text-xs">
+            <span class="uppercase tracking-wider text-paper-muted dark:text-charcoal-muted flex items-center gap-1.5">
+              <span>⚡</span>
+              <span>Dev.to Feed</span>
+            </span>
+            <span class="text-[10px] text-paper-muted dark:text-charcoal-muted">3 Berita Terkini</span>
+          </div>
+
+          <!-- News List Container -->
+          <div id="newsListContainer" class="space-y-3">
+            <div class="py-4 text-center font-mono text-xs text-paper-muted dark:text-charcoal-muted">
+              Memuat artikel komunitas...
+            </div>
+          </div>
+
         </div>
+
+        <!-- Sidebar Colophon -->
+        <div class="pt-2 font-mono text-[11px] text-paper-muted dark:text-charcoal-muted text-center lg:text-left">
+          <span>&copy; 2024 minded. &bull; Siswa SMK PPLG</span>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // ----------------------------------------------------
+    // 1. ANIMASI GANTI TEMA WHACK-A-MOLE (ANIME.JS TIMELINE)
+    // ----------------------------------------------------
+    const bonkOverlay = document.getElementById('bonkOverlay');
+    const moleSvg = document.getElementById('moleSvg');
+    const hammerWrapper = document.getElementById('hammerWrapper');
+    const bonkText = document.getElementById('bonkText');
+
+    let isWhacking = false;
+
+    function triggerWhackAMoleThemeToggle() {
+      if (isWhacking) return;
+      isWhacking = true;
+
+      // Tampilkan Overlay
+      bonkOverlay.classList.remove('hidden');
+      bonkOverlay.classList.add('flex');
+      bonkText.style.opacity = '0';
+      bonkText.style.transform = 'rotate(-6deg) scale(0.5)';
+
+      // Reset posisi awal mole & palu
+      moleSvg.style.transform = 'translateY(140px)';
+      hammerWrapper.style.transform = 'rotate(-40deg) translateY(-30px)';
+
+      const tl = anime.timeline({
+        easing: 'easeOutCubic',
+        complete: function() {
+          bonkOverlay.classList.remove('flex');
+          bonkOverlay.classList.add('hidden');
+          isWhacking = false;
+        }
+      });
+
+      // 1. Overlay Fade In
+      tl.add({
+        targets: bonkOverlay,
+        opacity: [0, 1],
+        duration: 150,
+        easing: 'linear'
+      })
+      // 2. Tikus muncul naik dari lubang
+      .add({
+        targets: moleSvg,
+        translateY: [140, 0],
+        duration: 380,
+        easing: 'easeOutBack'
+      }, '-=50')
+      // 3. Palu mengayun ke belakang bersiap mukul
+      .add({
+        targets: hammerWrapper,
+        rotate: [-40, -55],
+        translateY: [-30, -45],
+        duration: 160,
+        easing: 'easeInQuad'
+      }, '-=100')
+      // 4. Palu MUKUL KE BAWAH dengan cepat (HANTAMAN)
+      .add({
+        targets: hammerWrapper,
+        rotate: [-55, 30],
+        translateY: [-45, 10],
+        duration: 140,
+        easing: 'easeInQuint',
+        complete: function() {
+          // TEPAT SAAT PALU MENGHANTAM KEPALA TIKUS:
+          // Toggle dark mode
+          const html = document.documentElement;
+          html.classList.toggle('dark');
+          const isDark = html.classList.contains('dark');
+          localStorage.setItem('minded_theme', isDark ? 'dark' : 'light');
+        }
+      })
+      // 5. Teks BONK muncul meledak & Tikus terhentak masuk kembali ke lubang
+      .add({
+        targets: bonkText,
+        opacity: [0, 1],
+        scale: [0.6, 1.25, 1],
+        duration: 220,
+        easing: 'easeOutElastic(1, .6)'
+      }, '-=40')
+      .add({
+        targets: moleSvg,
+        translateY: [0, 140],
+        duration: 260,
+        easing: 'easeInBack'
+      }, '-=120')
+      // 6. Palu kembali santai
+      .add({
+        targets: hammerWrapper,
+        rotate: [30, 0],
+        translateY: [10, 0],
+        duration: 180,
+        easing: 'easeOutQuad'
+      })
+      // 7. Overlay Fade Out
+      .add({
+        targets: bonkOverlay,
+        opacity: [1, 0],
+        duration: 220,
+        delay: 200,
+        easing: 'linear'
+      });
+    }
+
+    // Pasang listener pada tombol tema desktop & mobile
+    document.getElementById('themeToggleDesktop').addEventListener('click', triggerWhackAMoleThemeToggle);
+    document.getElementById('themeToggleMobile').addEventListener('click', triggerWhackAMoleThemeToggle);
+
+    // Muat preferensi tema saat awal buka
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('minded_theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+
+    // ----------------------------------------------------
+    // 2. NAVBAR SUPER RESPONSIVE (DRAWER MOBILE)
+    // ----------------------------------------------------
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isClosed = mobileDrawer.classList.contains('hidden');
+      if (isClosed) {
+        mobileDrawer.classList.remove('hidden');
+        anime({
+          targets: mobileDrawer,
+          opacity: [0, 1],
+          translateY: [-10, 0],
+          duration: 220,
+          easing: 'easeOutCubic'
+        });
+      } else {
+        anime({
+          targets: mobileDrawer,
+          opacity: [1, 0],
+          translateY: [0, -10],
+          duration: 180,
+          easing: 'easeInCubic',
+          complete: () => {
+            mobileDrawer.classList.add('hidden');
+          }
+        });
+      }
+    });
+
+    // Otomatis menutup mobile drawer saat salah satu link diklik
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.add('hidden');
+      });
+    });
+
+    // ----------------------------------------------------
+    // 3. WIDGET CUACA REAL-TIME (OPENWEATHERMAP API)
+    // ----------------------------------------------------
+    const API_KEY_CUACA = 'e919b74bd829db61dd2f142eaa66b4b1';
+    let currentCity = 'Karanganyar';
+
+    const weatherTemp = document.getElementById('weatherTemp');
+    const weatherCityName = document.getElementById('weatherCityName');
+    const weatherDesc = document.getElementById('weatherDesc');
+    const weatherHumidity = document.getElementById('weatherHumidity');
+    const weatherWind = document.getElementById('weatherWind');
+    const weatherConditionIcon = document.getElementById('weatherConditionIcon');
+    const weatherErrorBox = document.getElementById('weatherErrorBox');
+    const weatherTime = document.getElementById('weatherTime');
+    const weatherSearchForm = document.getElementById('weatherSearchForm');
+    const weatherCityInput = document.getElementById('weatherCityInput');
+
+    function getWeatherEmoji(iconCode) {
+      if (!iconCode) return '🌤️';
+      if (iconCode.startsWith('01')) return '☀️';
+      if (iconCode.startsWith('02')) return '⛅';
+      if (iconCode.startsWith('03') || iconCode.startsWith('04')) return '☁️';
+      if (iconCode.startsWith('09') || iconCode.startsWith('10')) return '🌧️';
+      if (iconCode.startsWith('11')) return '⛈️';
+      if (iconCode.startsWith('13')) return '❄️';
+      if (iconCode.startsWith('50')) return '🌫️';
+      return '🌤️';
+    }
+
+    async function fetchWeather(city) {
+      weatherErrorBox.classList.add('hidden');
+      weatherErrorBox.textContent = '';
+
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY_CUACA}&units=metric&lang=id`;
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          if (res.status === 404) {
+            throw new Error(`Kota "${city}" tidak ditemukan (404). Silakan periksa kembali ejaan.`);
+          } else if (res.status === 401) {
+            throw new Error('Otorisasi gagal (401). API key OpenWeather tidak valid.');
+          } else {
+            throw new Error(`Gagal memuat cuaca (Error ${res.status}).`);
+          }
+        }
+
+        const data = await res.json();
+
+        // Render data sukses
+        weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+        weatherCityName.textContent = `${data.name}, ${data.sys.country}`;
+        weatherDesc.textContent = data.weather[0].description;
+        weatherHumidity.textContent = `${data.main.humidity}%`;
+        weatherWind.textContent = `${data.wind.speed} m/s`;
+        weatherConditionIcon.textContent = getWeatherEmoji(data.weather[0].icon);
+
+        const now = new Date();
+        weatherTime.textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} WIB`;
+
+      } catch (err) {
+        // Tampilkan pesan error di dalam kartu cuaca
+        weatherErrorBox.textContent = err.message || 'Terjadi kesalahan jaringan cuaca.';
+        weatherErrorBox.classList.remove('hidden');
+      }
+    }
+
+    weatherSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = weatherCityInput.value.trim();
+      if (val) {
+        currentCity = val;
+        fetchWeather(currentCity);
+        weatherCityInput.value = '';
+      }
+    });
+
+    // Panggil cuaca default
+    fetchWeather(currentCity);
+
+    // ----------------------------------------------------
+    // 4. WIDGET QUOTE INSPIRATIF (DUMMYJSON)
+    // ----------------------------------------------------
+    const quoteContent = document.getElementById('quoteContent');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const refreshQuoteBtn = document.getElementById('refreshQuoteBtn');
+
+    const fallbackQuotes = [
+      { quote: "Kegagalan hanya terjadi bila kita menyerah.", author: "B.J. Habibie" },
+      { quote: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+      { quote: "Stay hungry, stay foolish.", author: "Steve Jobs" }
+    ];
+
+    async function fetchQuote() {
+      // Anime.js fade out
+      anime({
+        targets: '#quoteWrapper',
+        opacity: [1, 0],
+        translateY: [0, -6],
+        duration: 180,
+        easing: 'easeInQuad',
+        complete: async () => {
+          try {
+            const res = await fetch('https://dummyjson.com/quotes/random');
+            if (!res.ok) throw new Error('Network error');
+            const data = await res.json();
+            quoteContent.textContent = `"${data.quote}"`;
+            quoteAuthor.textContent = `— ${data.author}`;
+          } catch (err) {
+            const randomFallback = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+            quoteContent.textContent = `"${randomFallback.quote}"`;
+            quoteAuthor.textContent = `— ${randomFallback.author}`;
+          }
+
+          // Anime.js fade in
+          anime({
+            targets: '#quoteWrapper',
+            opacity: [0, 1],
+            translateY: [6, 0],
+            duration: 250,
+            easing: 'easeOutQuad'
+          });
+        }
+      });
+    }
+
+    refreshQuoteBtn.addEventListener('click', fetchQuote);
+    fetchQuote();
+
+    // ----------------------------------------------------
+    // 5. WIDGET BERITA DEV.TO (3 ARTIKEL)
+    // ----------------------------------------------------
+    const newsListContainer = document.getElementById('newsListContainer');
+
+    async function fetchDevToArticles() {
+      try {
+        const res = await fetch('https://dev.to/api/articles?per_page=3');
+        if (!res.ok) throw new Error('Gagal mengambil berita Dev.to');
+        const articles = await res.json();
+
+        newsListContainer.innerHTML = '';
+        articles.forEach(art => {
+          const dateStr = art.readable_publish_date || 'Baru';
+          const articleEl = document.createElement('div');
+          articleEl.className = 'group border-b border-paper-border/60 dark:border-charcoal-border/60 pb-2.5 last:border-b-0 last:pb-0';
+          articleEl.innerHTML = `
+            <a href="${art.url}" target="_blank" rel="noopener noreferrer" class="block font-medium text-xs text-paper-ink dark:text-charcoal-ink group-hover:underline leading-snug line-clamp-2">
+              ${art.title}
+            </a>
+            <div class="flex items-center justify-between font-mono text-[10px] text-paper-muted dark:text-charcoal-muted mt-1">
+              <span>Dev.to &bull; ${dateStr}</span>
+              <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+            </div>
+          `;
+          newsListContainer.appendChild(articleEl);
+        });
+
+      } catch (err) {
+        // Fallback curated article links jika Dev.to offline / rate-limited
+        newsListContainer.innerHTML = `
+          <div class="space-y-2.5">
+            <a href="https://dev.to" target="_blank" class="block text-xs font-medium text-paper-ink dark:text-charcoal-ink hover:underline">
+              How to write clean JavaScript as a high school student
+            </a>
+            <a href="https://dev.to" target="_blank" class="block text-xs font-medium text-paper-ink dark:text-charcoal-ink hover:underline">
+              Understanding Modern CSS Flexbox &amp; Grid
+            </a>
+            <a href="https://dev.to" target="_blank" class="block text-xs font-medium text-paper-ink dark:text-charcoal-ink hover:underline">
+              10 terminal commands every developer should know
+            </a>
+          </div>
+        `;
+      }
+    }
+
+    fetchDevToArticles();
+
+    // ----------------------------------------------------
+    // 6. FORM TAMBAH HOBI DENGAN ANIMASI ANIME.JS
+    // ----------------------------------------------------
+    const interestForm = document.getElementById('interestForm');
+    const interestTitle = document.getElementById('interestTitle');
+    const interestDesc = document.getElementById('interestDesc');
+    const interestsGrid = document.getElementById('interestsGrid');
+
+    let interestCount = 4;
+
+    interestForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = interestTitle.value.trim();
+      const desc = interestDesc.value.trim();
+      if (!title || !desc) return;
+
+      interestCount++;
+      const numFormatted = interestCount.toString().padStart(2, '0');
+
+      const card = document.createElement('div');
+      card.className = 'interest-card group p-5 rounded-lg border border-paper-border dark:border-charcoal-border bg-paper-surface dark:bg-charcoal-surface hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200';
+      card.innerHTML = `
+        <div class="flex items-center justify-between font-mono text-[11px] text-paper-muted dark:text-charcoal-muted mb-2">
+          <span>[ ARSIP // CATATAN ]</span>
+          <span>${numFormatted}</span>
+        </div>
+        <h3 class="text-base font-bold text-paper-ink dark:text-charcoal-ink mb-1.5 tracking-tight">
+          ${title}
+        </h3>
+        <p class="text-xs text-paper-muted dark:text-charcoal-muted leading-relaxed">
+          ${desc}
+        </p>
       `;
 
-            // Masukkan ke bagian atas list
-            container.prepend(newCard);
+      interestsGrid.appendChild(card);
+      interestTitle.value = '';
+      interestDesc.value = '';
 
-            // Animasi masuk yang tajam dan seru
-            anime({
-                targets: newCard,
-                opacity: [0, 1],
-                translateY: [25, 0],
-                scale: [0.95, 1],
-                duration: 450,
-                easing: 'easeOutBack'
-            });
+      // Anime.js entry animation on newly created card
+      anime({
+        targets: card,
+        scale: [0.92, 1],
+        opacity: [0, 1],
+        translateY: [15, 0],
+        duration: 350,
+        easing: 'easeOutBack'
+      });
+    });
 
-            // Reset form
-            judulInput.value = '';
-            descInput.value = '';
-
-            showToast(`Mantap! Hobi "${judul}" berhasil ditambahkan! 🎉`, 'success');
-        }
-
-        function hapusHobi(btn) {
-            const card = btn.closest('.hobi-card');
-            anime({
-                targets: card,
-                opacity: [1, 0],
-                scale: [1, 0.9],
-                duration: 300,
-                easing: 'easeInCubic',
-                complete: () => {
-                    card.remove();
-                    showToast('Hobi telah dihapus dari daftar.', 'info');
-                }
-            });
-        }
-
-        // --------------------------------------------------------------
-        // 7. WIDGET API: CUACA (OpenWeatherMap Real API, Default Karanganyar)
-        // --------------------------------------------------------------
-        async function fetchWeather(city = 'Karanganyar', isInitialLoad = false) {
-            const cityNameEl = document.getElementById('weather-city-name');
-            const tempEl = document.getElementById('weather-temp');
-            const descEl = document.getElementById('weather-desc');
-            const humidityEl = document.getElementById('weather-humidity');
-            const windEl = document.getElementById('weather-wind');
-            const iconContainer = document.getElementById('weather-icon-container');
-
-            // --------------------------------------------------------------
-            // LOGIKA LOAD AWAL:
-            // SEBELUM melakukan fetch(), cek dulu dengan if (API_KEY_CUACA === 'MASUKKAN_API_KEY_DISINI').
-            // Jika iya, JANGAN lakukan fetch sama sekali! Langsung tampilkan teks
-            // "API key belum dipasang" di DALAM kotak widget cuaca (bukan notifikasi toast).
-            // --------------------------------------------------------------
-            // Cek jika API key masih default / kosong
-            if (API_KEY_CUACA === 'MASUKKAN_API_KEY_DISINI' || !API_KEY_CUACA || API_KEY_CUACA.trim() === '') {
-                descEl.innerText = 'API key belum dipasang';
-                iconContainer.innerHTML = '<i class="fa-solid fa-key text-amber-300"></i>';
-                return;
-            }
-
-            // --------------------------------------------------------------
-            // LOGIKA FETCH (SANGAT PENTING):
-            // JANGAN ubah teks nama kota atau suhu di HTML sebelum response.ok bernilai true!
-            // Saat tombol cari ditekan, tampilkan dulu teks "Mencari..." di widget.
-            // --------------------------------------------------------------
-            descEl.innerText = isInitialLoad ? 'Memuat cuaca...' : 'Mencari...';
-            iconContainer.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-
-            // --------------------------------------------------------------
-            // PENANGANAN ERROR: Cek status HTTP!
-            // - Jika response.status === 404: "Kota tidak ditemukan"
-            // - Jika response.status === 401: "API Key sedang diproses server, coba lagi nanti"
-            // --------------------------------------------------------------
-            try {
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY_CUACA}&units=metric`;
-                const res = await fetch(url);
-
-                if (!res.ok) {
-                    if (res.status === 404) {
-                        descEl.innerText = 'Kota tidak ditemukan';
-                        iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-300"></i>';
-                        if (!isInitialLoad) {
-                            showToast('Kota tidak ditemukan', 'error');
-                        }
-                    } else if (res.status === 401) {
-                        descEl.innerText = 'API Key sedang diproses server, coba lagi nanti';
-                        iconContainer.innerHTML = '<i class="fa-solid fa-clock text-amber-300"></i>';
-                        if (!isInitialLoad) {
-                            showToast('API Key sedang diproses server, coba lagi nanti', 'error');
-                        }
-                    } else {
-                        descEl.innerText = 'Kota tidak ditemukan';
-                        iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-300"></i>';
-                        if (!isInitialLoad) {
-                            showToast(`Gagal memuat cuaca (${res.status})`, 'error');
-                        }
-                    }
-                    return;
-                }
-
-                const data = await res.json();
-                if (data.cod && (data.cod === 404 || data.cod === '404')) {
-                    descEl.innerText = 'Kota tidak ditemukan';
-                    iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-300"></i>';
-                    if (!isInitialLoad) {
-                        showToast('Kota tidak ditemukan', 'error');
-                    }
-                    return;
-                }
-
-                // response.ok BERNILAI TRUE: Baru ubah teks nama kota, suhu, kelembapan, dll di HTML!
-                const temp = Math.round(data.main.temp);
-                const humidity = data.main.humidity;
-                const wind = Math.round(data.wind.speed * 3.6);
-                const description = data.weather && data.weather[0] ? data.weather[0].description : 'Cerah';
-                const iconCode = data.weather && data.weather[0] ? data.weather[0].icon : '01d';
-
-                cityNameEl.innerText = `${data.name}${data.sys && data.sys.country ? ', ' + data.sys.country : ''}`;
-                tempEl.innerText = `${temp}°C`;
-                descEl.innerText = description.charAt(0).toUpperCase() + description.slice(1);
-                humidityEl.innerText = `${humidity}%`;
-                windEl.innerText = `${wind} km/h`;
-                iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Cuaca" class="w-12 h-12 inline-block -my-2 drop-shadow">`;
-
-                anime({
-                    targets: '#weather-display',
-                    scale: [0.97, 1],
-                    opacity: [0.7, 1],
-                    duration: 300,
-                    easing: 'easeOutQuad'
-                });
-
-            } catch (err) {
-                // Tangkap semua error agar script JS tidak crash
-                descEl.innerText = 'Kota tidak ditemukan';
-                iconContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-300"></i>';
-                if (!isInitialLoad) {
-                    showToast('Kota tidak ditemukan', 'error');
-                }
-            }
-        }
-
-        function cariCuaca() {
-            const input = document.getElementById('weather-search-input');
-            const val = input.value.trim();
-
-            // --------------------------------------------------------------
-            // LOGIKA FETCH & CARI KOTA:
-            // Jika tombol ditekan tapi input kosong, munculkan notifikasi
-            // melayang (toast) "Nama kota tidak boleh kosong"
-            // --------------------------------------------------------------
-            if (!val) {
-                showToast('Nama kota tidak boleh kosong', 'error');
-                input.focus();
-                return;
-            }
-
-            fetchWeather(val, false);
-            input.value = '';
-        }
-
-        // Enter key support untuk input cuaca
-        document.getElementById('weather-search-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                cariCuaca();
-            }
-        });
-
-        // --------------------------------------------------------------
-        // 8. WIDGET API: QUOTES (Real API Gratis via DummyJSON)
-        // --------------------------------------------------------------
-        async function fetchQuote() {
-            const quoteTextEl = document.getElementById('quote-text');
-            const quoteAuthorEl = document.getElementById('quote-author');
-            const quoteBox = document.getElementById('quote-box');
-            const btnIcon = document.getElementById('btn-quote-icon');
-
-            if (btnIcon) btnIcon.classList.add('fa-spin');
-
-            try {
-                const res = await fetch('https://dummyjson.com/quotes/random');
-                if (!res.ok) throw new Error('Gagal mengambil quote dari API');
-                const data = await res.json();
-
-                // Animasi fade out lalu fade in Anime.js
-                anime({
-                    targets: quoteBox,
-                    opacity: [1, 0],
-                    translateY: [0, -8],
-                    duration: 180,
-                    easing: 'easeInQuad',
-                    complete: () => {
-                        quoteTextEl.innerText = `"${data.quote}"`;
-                        quoteAuthorEl.innerText = `— ${data.author || 'Anonim'}`;
-
-                        anime({
-                            targets: quoteBox,
-                            opacity: [0, 1],
-                            translateY: [8, 0],
-                            duration: 260,
-                            easing: 'easeOutQuad'
-                        });
-                    }
-                });
-
-            } catch (err) {
-                // Fallback jika API sedang offline
-                quoteTextEl.innerText = '"Bermimpilah setinggi langit. Jika engkau jatuh, engkau akan jatuh di antara bintang-bintang."';
-                quoteAuthorEl.innerText = '— Ir. Soekarno';
-                showToast('Gagal memuat quote dari API online, menampilkan quote inspiratif.', 'info');
-            } finally {
-                if (btnIcon) btnIcon.classList.remove('fa-spin');
-            }
-        }
-
-        // --------------------------------------------------------------
-        // 9. WIDGET API: BERITA TERKINI (Real News API via Dev.to)
-        // --------------------------------------------------------------
-        async function fetchNews() {
-            const newsContainer = document.getElementById('news-container');
-
-            // Tampilkan teks "Memuat berita..." saat data sedang di-fetch
-            newsContainer.innerHTML = `
-                <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-spinner fa-spin text-sky-500"></i> Memuat berita...
-                </div>
-            `;
-
-            try {
-                const res = await fetch('https://dev.to/api/articles?per_page=3');
-                if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-                const data = await res.json();
-
-                if (!Array.isArray(data) || data.length === 0) {
-                    throw new Error('Tidak ada artikel');
-                }
-
-                // Ambil 3 artikel terbaru (title dan url)
-                const articles = data.slice(0, 3);
-                newsContainer.innerHTML = '';
-
-                articles.forEach((item) => {
-                    const card = document.createElement('a');
-                    card.href = item.url;
-                    card.target = '_blank';
-                    card.rel = 'noopener noreferrer';
-                    card.className = 'relative z-10 block p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-sky-400 dark:hover:border-sky-500 hover:shadow-sm transition-all group opacity-0';
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-[10px] font-bold text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-950 px-2 py-0.5 rounded">
-                                ${item.readable_publish_date || 'Terbaru'}
-                            </span>
-                            <span class="text-[10px] text-slate-400 group-hover:text-sky-500 flex items-center gap-1 transition-colors">
-                                Baca <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                            </span>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-800 dark:text-white leading-snug group-hover:text-sky-500 transition-colors line-clamp-2">
-                            ${item.title}
-                        </h4>
-                    `;
-                    newsContainer.appendChild(card);
-                });
-
-                // Animasi fade-in list card dengan Anime.js
-                anime({
-                    targets: '#news-container > a',
-                    opacity: [0, 1],
-                    translateY: [12, 0],
-                    delay: anime.stagger(100),
-                    duration: 400,
-                    easing: 'easeOutCubic'
-                });
-
-            } catch (err) {
-                newsContainer.innerHTML = `
-                    <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-600 dark:text-rose-400 flex items-center gap-2">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat berita terkini.
-                    </div>
-                `;
-            }
-        }
-
-        // --------------------------------------------------------------
-        // 10. INISIALISASI SAAT HALAMAN SELESAI DIMUAT
-        // --------------------------------------------------------------
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set Theme awal
-            initTheme();
-
-            // Scroll & Parallax
-            initScrollEvents();
-
-            // Load Real API Awal (Default Karanganyar)
-            fetchWeather('Karanganyar', true);
-            fetchQuote();
-            fetchNews();
-
-            // Animasi Load Awal Konten Utama
-            anime({
-                targets: '#tab-beranda',
-                opacity: [0, 1],
-                translateY: [20, 0],
-                duration: 500,
-                easing: 'easeOutCubic'
-            });
-
-            // Animasi Sidebar Masuk
-            anime({
-                targets: 'aside > div',
-                opacity: [0, 1],
-                translateY: [25, 0],
-                delay: anime.stagger(120),
-                duration: 550,
-                easing: 'easeOutCubic'
-            });
-        });
-    </script>
+    // ----------------------------------------------------
+    // 7. PAGE LOAD REVEAL (ANIME.JS STAGGER)
+    // ----------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      anime({
+        targets: ['#hero', '.interest-card', '#mapel', '.widget-box'],
+        opacity: [0, 1],
+        translateY: [16, 0],
+        delay: anime.stagger(75),
+        duration: 500,
+        easing: 'easeOutCubic'
+      });
+    });
+  </script>
 </body>
-
 </html>
